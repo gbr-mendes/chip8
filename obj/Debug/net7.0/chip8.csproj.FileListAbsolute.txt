@@ -1,0 +1,15 @@
+/home/gabriel/projects/chip8/bin/Debug/net7.0/chip8
+/home/gabriel/projects/chip8/bin/Debug/net7.0/chip8.deps.json
+/home/gabriel/projects/chip8/bin/Debug/net7.0/chip8.runtimeconfig.json
+/home/gabriel/projects/chip8/bin/Debug/net7.0/chip8.dll
+/home/gabriel/projects/chip8/bin/Debug/net7.0/chip8.pdb
+/home/gabriel/projects/chip8/obj/Debug/net7.0/chip8.csproj.AssemblyReference.cache
+/home/gabriel/projects/chip8/obj/Debug/net7.0/chip8.GeneratedMSBuildEditorConfig.editorconfig
+/home/gabriel/projects/chip8/obj/Debug/net7.0/chip8.AssemblyInfoInputs.cache
+/home/gabriel/projects/chip8/obj/Debug/net7.0/chip8.AssemblyInfo.cs
+/home/gabriel/projects/chip8/obj/Debug/net7.0/chip8.csproj.CoreCompileInputs.cache
+/home/gabriel/projects/chip8/obj/Debug/net7.0/chip8.dll
+/home/gabriel/projects/chip8/obj/Debug/net7.0/refint/chip8.dll
+/home/gabriel/projects/chip8/obj/Debug/net7.0/chip8.pdb
+/home/gabriel/projects/chip8/obj/Debug/net7.0/chip8.genruntimeconfig.cache
+/home/gabriel/projects/chip8/obj/Debug/net7.0/ref/chip8.dll
