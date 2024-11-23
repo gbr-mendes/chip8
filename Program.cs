@@ -32,9 +32,24 @@ Console.Clear();
 Console.WriteLine("\x1b[3J");
 Console.SetCursorPosition(0,0);
 
-display.WriteSprite(0,0, sprite1);
-display.Show();
+// display.WriteSprite(0,0, sprite1);
+// display.Show();
 
-await Task.Delay(5000);
-display.WriteSprite(0,0, sprite2);
-display.Show();
+// await Task.Delay(5000);
+// display.WriteSprite(0,0, sprite2);
+// display.Show();
+
+var t1 = new SoundTimer
+{
+    Count = 255
+};
+
+while (true)
+{
+    if(t1.Count > 0)
+    {
+        Console.Beep();
+        t1.Count--;   
+    }
+    await Task.Delay(17);
+}
