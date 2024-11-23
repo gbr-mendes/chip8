@@ -43,6 +43,7 @@ public class Display
 
     public void Test()
     {
+        // Console.SetCursorPosition(0, 0);
         for(var i = 0; i < Lines; i++)
         {
             for (var j = 0; j < Columns; j++)
