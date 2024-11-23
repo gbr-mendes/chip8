@@ -16,16 +16,25 @@ var sprite1 = new byte[]
     0X00
 };
 
+var sprite2 = new byte[]
+{
+    0xF8,
+    0xF8,
+    0xF8,
+    0xF8,
+    0xF8,
+    0xF8,
+    0xF8,
+    0xF8
+};
+
 Console.Clear();
 Console.WriteLine("\x1b[3J");
 Console.SetCursorPosition(0,0);
 
 display.WriteSprite(0,0, sprite1);
-display.Test();
+display.Show();
 
 await Task.Delay(5000);
-
-Console.Clear();
-Console.WriteLine("\x1b[3J");
-Console.SetCursorPosition(0,0);
-display.Test();
+display.WriteSprite(0,0, sprite2);
+display.Show();

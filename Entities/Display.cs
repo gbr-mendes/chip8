@@ -24,7 +24,6 @@ public class Display
         
         foreach(var b in sprite)
         {
-            // 00111000
             for(var i = 7; i>=0; i--)
             {
                 var mask = (byte) (1 << i);
@@ -41,9 +40,11 @@ public class Display
         }
     }
 
-    public void Test()
+    public void Show()
     {
-        // Console.SetCursorPosition(0, 0);
+        Console.Clear();
+        Console.WriteLine("\x1b[3J");
+        Console.SetCursorPosition(0,0);
         for(var i = 0; i < Lines; i++)
         {
             for (var j = 0; j < Columns; j++)
