@@ -61,4 +61,22 @@ public class Memory
             }
         }
     }
+
+    public short ReadInstructionBytes(int pc)
+    {
+        var highByte = Read(pc);
+        var lowByte = Read(pc + 1);
+        return (short)(( highByte << 8) | lowByte);
+    }
+
+    public void LoadGame(string gamePath)
+    {
+        var gameBytes = File.ReadAllBytes(gamePath);
+        var memoryAddress = 512; // The first 512 bytes are reserverd, so we start to load the game here
+        foreach(var gb in gameBytes)
+        {
+            Write(memoryAddress, gb);
+            memoryAddress++;
+        }
+    }
 }

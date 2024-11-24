@@ -2,35 +2,28 @@ namespace chip8.Entities;
 
 public class Stack
 {
-    private List<byte> Addresses { get; } = new();
+    private List<short> Addresses { get; } = new();
 
-    public void Push(byte[] addresses)
+    public void Push(short address)
     {
-        if (addresses.Length != 2)
-        {
-            throw new Exception("Stack entries should be 16 bits long");
-        }
-
+    
         if (Addresses.Count == 16)
         {
             throw new Exception("Stack overflow");
         }
         
-        foreach(var address in addresses)
-        {
-            Addresses.Add(address);
-        }
+        Addresses.Add(address);
     }
 
-    public List<byte> Pop()
+    public short Pop()
     {
-        if (Addresses.Count < 2)
+        if (Addresses.Count < 1)
         {
             throw new Exception("Nothing to pop");
         }
 
-        var elements = Addresses.TakeLast(2).ToList();
-        Addresses.RemoveRange(Addresses.Count - 2, 2);
-        return elements;
+        var element = Addresses.TakeLast(1).First();
+        Addresses.RemoveAt(-1);
+        return element;
     }
 }

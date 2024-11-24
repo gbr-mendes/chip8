@@ -15,6 +15,11 @@ public class Display
 
     public void WriteSprite(int xPoint, int yPoint, byte[] sprite)
     {
+        if (xPoint > Columns - 1 || yPoint > Lines - 1)
+        {
+            throw new Exception("Review display bounds");
+        }
+
         if(sprite.Length > 15)
         {
             throw new Exception("Sprite length exceded");
@@ -30,6 +35,7 @@ public class Display
                 var bitOn = (mask & b) != 0;
                 if(bitOn)
                 {
+                    // if the games present problems, validate the case where line and column exceds its bounderies
                     Matrix[line, column] = Matrix[line, column] == 0 ? 1 : 0;
                 }
 
@@ -56,6 +62,24 @@ public class Display
                     Console.Write(" ");
                 }
                 
+            }
+            Console.WriteLine();
+        }
+    }
+
+    public void Clear()
+    {
+        Console.Clear();
+        Console.WriteLine("\x1b[3J");
+        Console.SetCursorPosition(0,0);
+        for(var i = 0; i < Lines; i++)
+        {
+            for (var j = 0; j < Columns; j++)
+            {
+                if (Matrix[i,j] == 1)
+                {
+                    Matrix[i,j] = 0;
+                }
             }
             Console.WriteLine();
         }
