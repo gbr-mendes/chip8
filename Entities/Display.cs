@@ -13,44 +13,48 @@ public class Display
         Matrix = new int[lines, columns];
     }
 
-    public void WriteSprite(int xPoint, int yPoint, byte[] sprite)
+    public void WriteSprite(int xPoint, int yPoint, byte[] sprite, ref byte vF)
     {
-        if (xPoint > Columns - 1 || yPoint > Lines - 1)
-        {
-            throw new Exception("Review display bounds");
-        }
-
         if(sprite.Length > 15)
         {
             throw new Exception("Sprite length exceded");
         }
-        var column = xPoint;
         var line = yPoint;
-        
+        vF = 0;
+
         foreach(var b in sprite)
         {
+            var column = xPoint;
             for(var i = 7; i>=0; i--)
             {
                 var mask = (byte) (1 << i);
                 var bitOn = (mask & b) != 0;
-                if(bitOn)
+                 
+                if (Matrix[line, column] == 1 && bitOn)
                 {
-                    // if the games present problems, validate the case where line and column exceds its bounderies
-                    Matrix[line, column] = Matrix[line, column] == 0 ? 1 : 0;
+                    Matrix[line, column] = 0;
+                    vF = 1;
+                }else if(bitOn) {
+                    Matrix[line, column] = 1;
                 }
-
+                
+                if(column == Columns - 1)
+                {
+                    break;
+                }
                 column++;
             }
-            column = xPoint;
+            if (line == Lines - 1)
+            {
+                break;
+            }
             line++;
         }
+        Show();
     }
 
     public void Show()
     {
-        Console.Clear();
-        Console.WriteLine("\x1b[3J");
-        Console.SetCursorPosition(0,0);
         for(var i = 0; i < Lines; i++)
         {
             for (var j = 0; j < Columns; j++)
@@ -69,9 +73,9 @@ public class Display
 
     public void Clear()
     {
-        Console.Clear();
-        Console.WriteLine("\x1b[3J");
-        Console.SetCursorPosition(0,0);
+        // Console.Clear();
+        // Console.WriteLine("\x1b[3J");
+        // Console.SetCursorPosition(0,0);
         for(var i = 0; i < Lines; i++)
         {
             for (var j = 0; j < Columns; j++)

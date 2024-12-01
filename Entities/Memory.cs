@@ -79,4 +79,9 @@ public class Memory
             memoryAddress++;
         }
     }
+
+    public byte[] ReadSprite(int startAddress, int length)
+    {
+        return Addresses.Skip(startAddress).Take(length).ToArray();
+    }
 }

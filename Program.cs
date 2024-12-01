@@ -5,29 +5,6 @@ memory.LoadGame("./roms/ibm_logo.ch8");
 
 var display = new Display(32, 64);
 
-var sprite1 = new byte[]
-{
-    0X38,
-    0X7C,
-    0XFE,
-    0XFE,
-    0X7C,
-    0X38,
-    0X10,
-    0X00
-};
-
-// Console.Clear();
-// Console.WriteLine("\x1b[3J");
-// Console.SetCursorPosition(0,0);
-
-// display.WriteSprite(20,5, sprite1);
-// display.Show();
-
-// await Task.Delay(5000);
-// display.WriteSprite(0,0, sprite2);
-// display.Show();
-
 var pc = 512;
 // REGISTERS
 short I = 0;
@@ -55,19 +32,22 @@ while(true)
     pc += 2;
 
     // decode
-    var opcode = (byte) (instructionBytes >> 12 )& 0XF;
-    var X = (byte) ((instructionBytes >> 8) & 0XF);
-    var Y = (byte) ((instructionBytes >> 4) & 0XF);
-    var N = (byte) (instructionBytes & 0XF);
-    var NN = (byte) (instructionBytes & 0XFF);
-    var NNN = (byte) (instructionBytes & 0XFFF);
 
+    if (instructionBytes == 0x00E0)
+    {
+        display.Clear();
+        continue;
+    }
+
+    var opcode = (byte) ((instructionBytes >> 12) & 0xF);
+    var X = (byte) ((instructionBytes >> 8) & 0xF);
+    var Y = (byte) ((instructionBytes >> 4) & 0xF);
+    var N = (byte) (instructionBytes & 0xF);
+    var NN = (byte) (instructionBytes & 0xFF);
+    var NNN = (short) (instructionBytes & 0xFFF);
     //execute
     switch(opcode)
     {
-        case 0x00E0:
-            display.Clear();
-            break;
         case 0x1:
             pc = NNN;
             break;
@@ -181,9 +161,114 @@ while(true)
             I = NNN;
             break;
         case 0xD:
-            Console.WriteLine("Here man");
+            byte _x = 0;
+            byte _y = 0;
+            switch(X)
+            {
+                case 0x0:
+                    _x = v0;
+                    break;
+                case 0x1:
+                    _x = v1;
+                    break;
+                case 0x2:
+                    _x = v2;
+                    break;
+                case 0x3:
+                    _x = v3;
+                    break;
+                case 0x4:
+                    _x = v4;
+                    break;
+                case 0x5:
+                    _x = v5;
+                    break;
+                case 0x6:
+                    _x = v6;
+                    break;
+                case 0x7:
+                    _x = v7;
+                    break;
+                case 0x8:
+                    _x = v8;
+                    break;
+                case 0x9:
+                    _x = v9;
+                    break;
+                case 0xA:
+                    _x = vA;
+                    break;
+                case 0xB:
+                    _x = vB;
+                    break;
+                case 0xC:
+                    _x = vC;
+                    break;
+                case 0xD:
+                    _x = vD;
+                    break;
+                case 0xE:
+                    _x = vE;
+                    break;
+                case 0xF:
+                    _x = vF;
+                    break;
+            }
+
+            switch(Y)
+            {
+                case 0x0:
+                    _y = v0;
+                    break;
+                case 0x1:
+                    _y = v1;
+                    break;
+                case 0x2:
+                    _y = v2;
+                    break;
+                case 0x3:
+                    _y = v3;
+                    break;
+                case 0x4:
+                    _y = v4;
+                    break;
+                case 0x5:
+                    _y = v5;
+                    break;
+                case 0x6:
+                    _y = v6;
+                    break;
+                case 0x7:
+                    _y = v7;
+                    break;
+                case 0x8:
+                    _y = v8;
+                    break;
+                case 0x9:
+                    _y = v9;
+                    break;
+                case 0xA:
+                    _y = vA;
+                    break;
+                case 0xB:
+                    _y = vB;
+                    break;
+                case 0xC:
+                    _y = vC;
+                    break;
+                case 0xD:
+                    _y = vD;
+                    break;
+                case 0xE:
+                    _y = vE;
+                    break;
+                case 0xF:
+                    _y = vF;
+                    break;
+            }
+            // read sprit from length N
+            var sprite = memory.ReadSprite(I, N);
+            display.WriteSprite(_x & 63, _y & 31, sprite, ref vF);
             break;
     }
-
-    // await Task.Delay(100);
 }
